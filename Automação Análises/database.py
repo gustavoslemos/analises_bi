@@ -65,8 +65,11 @@ def process_dataframe(df):
     # Converte as colunas 'Impressions' e 'Link Clicks' para numéricas
     df['Impressions'] = pd.to_numeric(df['Impressions'], errors='coerce').astype(float)
     df['Link Clicks'] = pd.to_numeric(df['Link Clicks'], errors='coerce').astype(float)
-    # df['Website Leads'] = pd.to_numeric(df['Website Leads'], errors='coerce').astype(float)
-    # df['On-Facebook Leads'] = pd.to_numeric(df['On-Facebook Leads'], errors='coerce').astype(float)
+    df['Amount Spent'] = df['Amount Spent'].str.replace(',', '.').astype(float)
+
+    # Substitui os valores nulos pela média da coluna 'Amount Spent'
+    df['Amount Spent'].fillna(df['Amount Spent'].mean(), inplace=True)
+
 
     # Substitui os valores nulos pela média das colunas
     df['Impressions'].fillna(df['Impressions'].mean(), inplace=True)
